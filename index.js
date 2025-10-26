@@ -37,9 +37,12 @@ fastify.post("/api", async (request, reply) => {
 
         const target = data.target;
         const method = data.method;
-        const sdata = data.data;
+        let sdata = data.data;
         const headers = data.headers;
 
+        if(sdata instanceof Object){
+          sdata = JSON.stringify(sdata);
+        }
         try{
             const res = await fetch(target, {
                 method: method,

@@ -33,7 +33,9 @@ fastify.get("/", async (request, reply) => {
 
 fastify.post("/api", async (request, reply) => {
     try {
-      request.log.info(request.body);
+      if(options.log === 'true'){
+        console.log(request.body)
+      }
         const data = JSON.parse(aesDecrypt(request.body.data,process.env.SECRET,process.env.IV));
         request.log.info(data);
         const target = data.target;

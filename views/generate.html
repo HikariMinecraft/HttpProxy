@@ -113,7 +113,7 @@
 
     <script>
         // Note: this page posts to the local server at port 4577
-        const API_URL = 'http://127.0.0.1:4577/api/aes/generate';
+        const API_URL = window.location.toString().replace(window.location.pathname, '') + '/api/aes/generate';
 
         // Initialize CodeMirror editors
         const textEditor = CodeMirror.fromTextArea(document.getElementById('text'), {

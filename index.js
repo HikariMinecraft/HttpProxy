@@ -9,7 +9,8 @@ const program = new Command();
 
 program
   .option('-p, --port <number>', 'set port', '4577')
-  .option('-h, --host <string>', 'set host', '127.0.0.1');
+  .option('-h, --host <string>', 'set host', '127.0.0.1')
+  .option('-l, --log <string>', 'set log', 'false')
 
 program.parse(process.argv);
 
@@ -17,7 +18,7 @@ const options = program.opts();
 console.log(options);
 
 
-const fastify = Fastify({ logger: true });
+const fastify = Fastify({ logger: options.log === 'true' ? true : false });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

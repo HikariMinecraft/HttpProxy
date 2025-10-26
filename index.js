@@ -53,7 +53,7 @@ fastify.post("/api", async (request, reply) => {
             }});
         }catch(err){
             console.log(err);
-            return reply.code(500).send({ error: err });
+            return reply.code(500).send({ error: err.message });
         }
     } catch (err) {
         return reply.code(500).send({ error: 'internal error' });

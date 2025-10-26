@@ -50,7 +50,12 @@ fastify.post("/api", async (request, reply) => {
                 headers: headers
             });
 
-            return reply.code(200).send({ status: "success", data: {
+            return reply.code(200).send({ status: "success",send:{
+              headers: headers,
+              data: sdata,
+              method: method,
+              target: target
+            }, data: {
                 status: res.status,
                 headers: res.headers,
                 data: await res.text()

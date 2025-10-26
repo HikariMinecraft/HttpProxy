@@ -34,7 +34,7 @@ fastify.get("/", async (request, reply) => {
 fastify.post("/api", async (request, reply) => {
     try {
         const data = JSON.parse(aesDecrypt(request.body.data,process.env.SECRET,process.env.IV));
-
+        request.log.info(data);
         const target = data.target;
         const method = data.method;
         let sdata = data.data;
@@ -65,6 +65,7 @@ fastify.post("/api", async (request, reply) => {
             return reply.code(500).send({ error: err.message });
         }
     } catch (err) {
+      request.log.error(err);
         return reply.code(500).send({ error: 'internal error' });
     }
 });

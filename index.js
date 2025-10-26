@@ -4,6 +4,19 @@ import 'dotenv/config';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { aesDecrypt, aesEncrypt } from "./aes.js";
+import { Command } from 'commander';
+const program = new Command();
+
+program
+  .option('-p, --port <number>', 'set port', '4577')
+  .option('-h, --host <string>', 'set host', '127.0.0.1');
+
+program.parse(process.argv);
+
+const options = program.opts();
+console.log(options);
+
+
 const fastify = Fastify({ logger: true });
 
 const __filename = fileURLToPath(import.meta.url);
@@ -78,7 +91,7 @@ fastify.post('/api/aes/generate', async (request, reply) => {
 });
 
 try {
-  const address = await fastify.listen({ port: 4577 });
+  const address = await fastify.listen({ port: options.port, host: options.host });
   console.log(`Server listening at ${address}`);
 } catch (err) {
   fastify.log.error(err);
